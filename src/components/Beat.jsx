@@ -3,7 +3,7 @@ import React from 'react'
 export default function Beat({ beat }) {
   return (
     <div>
-      {beat}
+      { beat.name }
     </div>
   )
 }
