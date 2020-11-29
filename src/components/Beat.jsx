@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Counter() {
+export default function Beat({ beat }) {
   return (
     <div>
-      Hello World
+      {beat}
     </div>
   )
 }
