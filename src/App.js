@@ -26,6 +26,14 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(beats));
   }, [beats]);
 
+  // Below will allow the toggle status to also be remembered in state
+  function toggleBeat(id){
+    const newBeats = [...beats];
+    const beat = newBeats.find(beat => beat.id === id);
+    beat.selected = !beat.selected;
+    setBeats(newBeats);
+  }
+
   function handleAddBeat(event) {
     const name = beatNameRef.current.value
     if (name === "") return /* prevents empty string being entered into state */ 
@@ -41,12 +49,13 @@ function App() {
       <img src={logo} className="App-logo" alt="logo" />
 
       <h3>This is the WOD generator</h3>
-      <Counter beats={beats} />
+      <Counter beats={beats} toggleBeat={toggleBeat} />
 
       <input type="text" ref={beatNameRef} />
-      <button onClick={handleAddBeat} >Add Exercise</button>
+      <button onClick={handleAddBeat}>Add Exercise</button>
       <button>Clear Exercise</button>
       <div>{beats.length} Total Beats</div>
+      <div>{beats.filter(beat => !beat.selected).length} beats left available</div>
 
       <div>
         <label>1/16</label>
