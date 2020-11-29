@@ -34,6 +34,7 @@ function App() {
     setBeats(newBeats);
   }
 
+  // Below function adds beats to state if the string is not empty
   function handleAddBeat(event) {
     const name = beatNameRef.current.value
     if (name === "") return /* prevents empty string being entered into state */ 
@@ -42,6 +43,12 @@ function App() {
       return [...prevBeats, {id:uuidv4(), name:name, selected:false }]
     }) /* This adds each new input to the already existing state*/ 
     /* To make this state persist. we use UsEffect and localStorage*/   
+  }
+
+  // Below function will remove all entries with the checked status
+  function handleClearBeat() {
+    const newBeats = beats.filter(beat => !beat.selected);
+    setBeats(newBeats);
   }
 
   return (
@@ -53,7 +60,8 @@ function App() {
 
       <input type="text" ref={beatNameRef} />
       <button onClick={handleAddBeat}>Add Exercise</button>
-      <button>Clear Exercise</button>
+      <button onClick={handleClearBeat}>Clear Exercise</button>
+
       <div>{beats.length} Total Beats</div>
       <div>{beats.filter(beat => !beat.selected).length} beats left available</div>
 
